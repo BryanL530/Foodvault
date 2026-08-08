@@ -1,0 +1,13 @@
+from rest_framework import views, response, exceptions, permissions
+from . import serializers as user_serializers
+
+class RegisterAPI(views.APIView):
+    def post(self, request):
+        serializer = user_serializers.UserSerializers(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        
+        data = serializer.validated_data
+        
+        print(data)
+        
+        return response.Response(data={'hello':'world'})
