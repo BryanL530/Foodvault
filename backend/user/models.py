@@ -2,15 +2,13 @@ from django.db import models
 from django.contrib.auth import models as auth_models
 
 class UserManager(auth_models.UserManager):
-    def create_user(self, first_name: str, last_name: str, email: str, password: str, is_staff=False, is_superuser=False) -> 'User': # type: ignore
+    def create_user(self, first_name: str, last_name: str, email: str, password: str = '', is_staff=False, is_superuser=False) -> 'User': # type: ignore
         if not email:
             raise ValueError('User must have an email')
         if not first_name:
             raise ValueError('User must have a first name')
         if not last_name:
             raise ValueError('User must have a last name')
-        if not password:
-            raise ValueError('User must have a password')
         
         user = self.model(email=self.normalize_email(email))
         user.first_name = first_name
