@@ -1,12 +1,19 @@
+
 from django.contrib import admin
-from . import models
+from user.models import User
 
 class UserAdmin(admin.ModelAdmin):
-    list_display = (
-        'id',
+    search_fields = (
+        'user_name',
         'first_name',
         'last_name',
-        'email'
+    )
+    list_display = (
+        'user_name',
+        'email',
+        'first_name',
+        'last_name',
+        'is_staff',
     )
     
-admin.site.register(models.User, UserAdmin)
+admin.site.register(User, UserAdmin)
