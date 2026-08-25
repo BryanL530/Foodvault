@@ -23,6 +23,7 @@ db.sqlite3
 db.sqlite3-journal
 media/
 staticfiles/
+.mypy_cache/
 
 # ==================== Node / Next.js ====================
 node_modules/

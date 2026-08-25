@@ -1,0 +1,35 @@
+[
+    {
+        "user_name":"admin",
+        "email":"admin@example.com",
+        "password": "admin1234"
+    },
+    {
+        "user_name":"alice",
+        "first_name":"Alice",
+        "last_name": "Amber",
+        "email":"alice@example.com",
+        "password":"alice1234"
+    },
+    {
+        "user_name":"beta",
+        "first_name":"Beta",
+        "last_name": "Burns",
+        "email":"Beta@example.com",
+        "password":"beta1234"
+    },
+    {
+        "user_name":"charles",
+        "first_name":"Charles",
+        "last_name": "Ceaser",
+        "email":"Charles@example.com",
+        "password":"charles1234"
+    },
+    {
+        "user_name":"david",
+        "first_name":"David",
+        "last_name": "Dan",
+        "email":"David@example.com",
+        "password":"david1234"
+    }
+]
