@@ -33,6 +33,8 @@ class UserApi(views.APIView):
         return resp
 
     def get(self, request):
+        if request.user is not None:
+            return response.Response(request.user)
         return response.Response('Not yet implemented')
     def put(self, request):
         return response.Response('Not yet implemented')
@@ -67,8 +69,17 @@ class LogoutApi(views.APIView):
     def post(self, request):
         token = request.COOKIES.get(LOGIN_TOKEN)
         if token is None:
-            return response.Response({'message': 'Not logged in'}, status=status.HTTP_400_BAD_REQUEST)
+            return response.Response({'message': 'User not logged in'}, status=status.HTTP_400_BAD_REQUEST)
 
         resp = response.Response({'message': 'Logged out'})
         resp.delete_cookie(LOGIN_TOKEN)
         return resp
+    
+class MeApi(views.APIView):
+    authentication_classes = [CustomUserAuthentication]
+    def get(self, request):
+        token = request.COOKIES.get(LOGIN_TOKEN)
+        if token is None:
+            return response.Response({'message': 'User not logged in'}, status=status.HTTP_401_UNAUTHORIZED)
+        serializer = UserSerializer(instance=request.user)
+        return response.Response(data=serializer.data)

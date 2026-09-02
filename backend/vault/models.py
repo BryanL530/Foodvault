@@ -1,6 +1,5 @@
 from django.db import models
 from django.utils import timezone
-#from django.contrib.auth import models as auth_models
 
 class Vault(models.Model):
     name = models.TextField(max_length=255)
@@ -16,20 +15,21 @@ class VaultMember(models.Model):
         EDITOR = 'editor', 'Editor'
         VIEWER = 'viewer', 'Viewer'
         
-    vault_id = models.ForeignKey(Vault, on_delete=models.CASCADE)
-    member_id = models.ForeignKey('user.User', on_delete=models.CASCADE)
+    vault = models.ForeignKey(Vault, on_delete=models.CASCADE)
+    member = models.ForeignKey('user.User', on_delete=models.CASCADE)
     role = models.CharField(max_length=7, choices=Role.choices, default=Role.VIEWER)
     
     class Meta:
-        unique_together = ('vault_id', 'member_id')
+        unique_together = ('vault', 'member')
         
     def __str__(self):
-        return f'{self.vault_id}, {self.member_id}, {self.role}'
+        return f'{self.vault}, {self.member}, {self.role}'
         
 class Item(models.Model):
-    vault_id = models.ForeignKey(Vault, on_delete=models.CASCADE)
+    vault = models.ForeignKey(Vault, on_delete=models.CASCADE)
     name = models.TextField(max_length=255)
     expiration_date = models.DateField(null=True)
+    count = models.PositiveBigIntegerField(default=0)
     
     @property
     def has_expiration_date(self) -> bool:
@@ -43,8 +43,4 @@ class Item(models.Model):
     
     def __str__(self):
         return self.name
-            
-    
-class QuantitiveItem(Item):
-    count = models.PositiveIntegerField()
         

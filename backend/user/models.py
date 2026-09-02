@@ -1,6 +1,8 @@
 
 from django.db import models
+from django.db.models import QuerySet
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from vault.models import Vault
 from django.utils.translation import gettext_lazy as _
 
 class UserManager(BaseUserManager):
@@ -48,6 +50,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def clean(self):
         pass
+    
+    def get_vaults(self) -> 'QuerySet[Vault]':
+        return self.vaults.all() # pyright: ignore[reportAttributeAccessIssue]
         
     def __str__(self):
         return f'{self.first_name} {self.last_name}'

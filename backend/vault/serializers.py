@@ -1,10 +1,12 @@
 from rest_framework import serializers
 from vault.models import Vault, VaultMember
 
-class VaultSerializers(serializers.Serializer):
+class VaultSerializers(serializers.Serializer):   
     id = serializers.IntegerField(read_only=True)
     name = serializers.CharField()
     description = serializers.CharField()
+    
+    
     
 class MemberSerializers(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
