@@ -5,7 +5,7 @@ export interface User {
   email: string;
 }
 
-export async function Me(): Promise<User> {
+export async function FetchSelfData(): Promise<User> {
   const response = await fetch("/api/user/me/", {
     credentials: 'include',
   });
